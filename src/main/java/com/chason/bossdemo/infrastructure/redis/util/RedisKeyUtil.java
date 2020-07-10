@@ -6,7 +6,7 @@ package com.chason.bossdemo.infrastructure.redis.util;
 public class RedisKeyUtil {
     private final static String KEY_SPLIT = "-";
     private final static String KEYS_SPLITER = "#";
-    private final static String LOGIN_TOKEN = "orangeota_boss:token";
+    private final static String LOGIN_TOKEN = "boss_token";
 
 
     /**
