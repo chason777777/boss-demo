@@ -243,9 +243,27 @@
 
 
   <!--自定义sql-->
+  <!--根据用户UUID，查询角色UUID列表-->
   <select id="getRoleUuidsByUserUuid" resultMap="java.util.String" parameterType="java.lang.String" >
     select role_uuid
     from t_user_role
     where user_uuid = #{userUuid,jdbcType=String}
   </select>
+
+  <!--批量插入用户角色表-->
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into t_user_role
+    (uuid,user_uuid,role_uuid,status,create_time,update_time)
+    values
+    <foreach collection="userRoleList" item="item" index="index" separator=",">
+      (
+      #{item.uuid},
+      #{item.userUuid},
+      #{item.roleUuid},
+      #{item.status},
+      #{item.createTime},
+      #{item.updateTime}
+      )
+    </foreach>
+  </insert>
 </mapper>

@@ -19,6 +19,16 @@ public class Role {
 
     private Date updateTime;
 
+    private boolean isOwn;
+
+    public boolean getIsOwn() {
+        return isOwn;
+    }
+
+    public void setIsOwn(boolean isOwn) {
+        isOwn = isOwn;
+    }
+
     public Integer getId() {
         return id;
     }

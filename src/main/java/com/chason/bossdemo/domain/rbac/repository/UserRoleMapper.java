@@ -32,4 +32,6 @@ public interface UserRoleMapper {
     int updateByPrimaryKey(UserRole record);
 
     List<String> getRoleUuidsByUserUuid(@Param("userUuid") String userUuid);
+
+    int batchInsert(@Param("userRoleList") List<UserRole> userRolesList);
 }

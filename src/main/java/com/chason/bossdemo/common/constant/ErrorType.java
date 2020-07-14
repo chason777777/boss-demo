@@ -16,7 +16,8 @@ public enum ErrorType {
     LOGIN_FAIL("443", "登陆失败"),
     LOGIN_NO("444", "没有登录"),//没有登录
     HAVE_NO_PERMISSION("445", "没有权限"),
-    USER_EXISTS("450", "用户已存在");
+    USER_EXISTS("450", "用户已存在"),
+    USER_UNEXISTS("451", "用户不存在");
 
     private String key;
 

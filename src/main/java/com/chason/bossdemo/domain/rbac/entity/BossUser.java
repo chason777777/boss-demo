@@ -34,6 +34,16 @@ public class BossUser {
 
     private String token;
 
+    private List<Role> roleList;
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
     public String getToken() {
         return token;
     }
