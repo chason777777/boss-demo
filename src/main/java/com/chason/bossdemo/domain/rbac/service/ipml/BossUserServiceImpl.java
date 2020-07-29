@@ -52,9 +52,12 @@ public class BossUserServiceImpl implements BossUserService {
         }
 
         BossUser bossUser = getBossUserByUsername(userName);
-        String passwordStr = Md5Util.getMD5((bossUser.getSalt() + password).getBytes());
+        if (null == bossUser) {
+            return Result.error(ErrorType.USERNAME_PASSWORD_IS_WRONG.getKey(), ErrorType.USERNAME_PASSWORD_IS_WRONG.getValue());
+        }
+        String passwordStr = Md5Util.getMD5((password + bossUser.getSalt()).getBytes());
 
-        if (passwordStr.equals(bossUser.getPassword())) {
+        if (!passwordStr.equals(bossUser.getPassword())) {
             return Result.error(ErrorType.USERNAME_PASSWORD_IS_WRONG.getKey(), ErrorType.USERNAME_PASSWORD_IS_WRONG.getValue());
         }
 
@@ -80,7 +83,7 @@ public class BossUserServiceImpl implements BossUserService {
             upUser.setUuid(bossUser.getUuid());
             upUser.setLastLoginTime(new Date());
             updateByUuid(upUser);
-            return Result.success(userName, "登录成功");
+            return Result.success(jsonObject, "登录成功");
         } else {
             return Result.error(ErrorType.LOGIN_FAIL.getKey(), ErrorType.LOGIN_FAIL.getValue());
         }
@@ -113,6 +116,7 @@ public class BossUserServiceImpl implements BossUserService {
         bossUser.setUserName(requestJson.getString("userName"));
 
         bossUser.setSalt(UuidUtil.randomSalt());
+        bossUser.setLevel((byte) 2);
         bossUser.setPassword(Md5Util.getMD5((bossUser.getSalt() + requestJson.getString("password")).getBytes()));
         bossUser.setCreateTime(DateTimeUtil.nowDate());
         bossUser.setUpdateTime(DateTimeUtil.nowDate());
@@ -148,7 +152,7 @@ public class BossUserServiceImpl implements BossUserService {
         }
 
         old = getBossUserByUuid(requestJson.getString("uuid"));
-        if (null == old){
+        if (null == old) {
             return Result.error(ErrorType.USER_UNEXISTS.getKey(), ErrorType.USER_UNEXISTS.getValue());
         }
 
@@ -210,7 +214,7 @@ public class BossUserServiceImpl implements BossUserService {
         }
 
         BossUser bossUser = getBossUserByUuid(requestJson.getString("uuid"));
-        if (null == bossUser){
+        if (null == bossUser) {
             return Result.error(ErrorType.USER_UNEXISTS.getKey(), ErrorType.USER_UNEXISTS.getValue());
         }
         List<Role> roleList = roleService.getAll();

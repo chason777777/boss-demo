@@ -1,2 +1,62 @@
 server:
   port: 8080
+  tomcat:
+    basedir: ./tmp
+    accesslog:
+      directory:
+    uri-encoding: UTF-8
+
+spring:
+  #redis
+  redis:
+    host: 127.0.0.1
+    password: root
+    port: 6379
+    pool:
+      max-idle: 5
+      min-idle: 1
+      max-active: 5
+      max-wait: -1
+    timeout: 3000
+
+  #mysql
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/chason?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&autoReconnect=true
+    username: root
+    password: root
+    name: druid
+    druid:
+      initialSize: 10
+      minIdle: 10
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM t_user
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,
+      connectionProperties=druid.stat.mergeSql: true;druid.stat.slowSqlMillis=5000
+
+  #编码格式
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+# 下面为连接池的补充设置，应用到上面所有数据源中
+# 初始化大小，最小，最大
+mybatis:
+  config-locations: classpath:mybatis/config/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+
+filepath: C:\Users\windows10\Desktop\file\
+fileUri: 192.168.3.180/otaFiles/
+deviceModelFilepath: C:\Users\windows10\Desktop\file\
+deviceModelFileUri: http://192.168.3.180/deviceModelFiles/
+#fileUri: http://121.201.57.214/otaUpgradeFile/

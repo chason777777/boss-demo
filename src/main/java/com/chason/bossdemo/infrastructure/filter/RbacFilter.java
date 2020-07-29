@@ -2,9 +2,8 @@ package com.chason.bossdemo.infrastructure.filter;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.kaadas.orangeiotboss.infrastructure.redis.service.RedisService;
-import com.kaadas.orangeiotboss.infrastructure.redis.util.RedisKeyUtil;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import com.chason.bossdemo.infrastructure.redis.service.RedisService;
+import com.chason.bossdemo.infrastructure.redis.util.RedisKeyUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 //注册器名称为customFilter,拦截的url为所有

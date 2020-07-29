@@ -292,9 +292,9 @@
 
 
   <!--自定义sql-->
-  <select id="getPermissionUrlsByPermissionUuids" resultMap="java.util.String" parameterType="java.lang.Array" >
+  <select id="getPermissionUrlsByPermissionUuids" resultType="java.lang.String" parameterType="java.lang.String" >
     select url
     from t_permission
-    where uuid in #{permissionUuids,jdbcType=Array}
+    where uuid in #{permissionUuids,jdbcType=VARCHAR}
   </select>
 </mapper>

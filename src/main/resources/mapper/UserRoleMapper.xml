@@ -244,10 +244,10 @@
 
   <!--自定义sql-->
   <!--根据用户UUID，查询角色UUID列表-->
-  <select id="getRoleUuidsByUserUuid" resultMap="java.util.String" parameterType="java.lang.String" >
+  <select id="getRoleUuidsByUserUuid" resultType="java.lang.String" parameterType="java.lang.String" >
     select role_uuid
     from t_user_role
-    where user_uuid = #{userUuid,jdbcType=String}
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
   </select>
 
   <!--批量插入用户角色表-->

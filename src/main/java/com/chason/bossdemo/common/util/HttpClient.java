@@ -1,7 +1,8 @@
 package com.chason.bossdemo.common.util;
 
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.*;
 import java.io.BufferedReader;
@@ -21,7 +22,7 @@ import java.security.cert.X509Certificate;
 @SuppressWarnings("Duplicates")
 public class HttpClient {
 
-    private static Logger log = Logger.getLogger("MyLogger");
+    private static Logger log = LoggerFactory.getLogger(HttpClient.class);
 
     private final static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
         public boolean verify(String hostname, SSLSession session) {

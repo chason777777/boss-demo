@@ -243,9 +243,9 @@
 
 
   <!--自定义sql-->
-  <select id="getPermissionUuidsByRoleUuids" resultMap="java.util.String" parameterType="java.lang.Array" >
+  <select id="getPermissionUuidsByRoleUuids" resultType="java.lang.String" parameterType="java.lang.String" >
     select permission_uuid
     from t_role_permission
-    where role_uuid in #{roleUuids,jdbcType=Array}
+    where role_uuid in #{roleUuids,jdbcType=VARCHAR}
   </select>
 </mapper>
