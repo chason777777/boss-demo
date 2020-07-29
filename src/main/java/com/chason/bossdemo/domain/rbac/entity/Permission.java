@@ -23,6 +23,16 @@ public class Permission {
 
     private Date updateTime;
 
+    private boolean isOwn;
+
+    public boolean getIsOwn() {
+        return isOwn;
+    }
+
+    public void setIsOwn(boolean isOwn) {
+        this.isOwn = isOwn;
+    }
+
     public Integer getId() {
         return id;
     }

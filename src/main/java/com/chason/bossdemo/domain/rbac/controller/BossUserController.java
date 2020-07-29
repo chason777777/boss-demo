@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:
  */
 @RestController
-@RequestMapping("/bossuser")
+@RequestMapping("/bossUser")
 public class BossUserController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BossUserController.class);
 

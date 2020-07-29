@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 //注册器名称为customFilter,拦截的url为所有
@@ -28,6 +29,7 @@ public class RbacFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String reqStr = req.getRequestURI();
         if (!reqStr.equals("/bossUser/login") && !reqStr.equals("/bossUser/logout") && !reqStr.startsWith("/api") && !reqStr.startsWith("/util")
                 && !reqStr.startsWith("/file") && !reqStr.equals("/bossUser/updatepwd")) {
@@ -39,7 +41,9 @@ public class RbacFilter implements Filter {
                     String serverToken = redisService.getString(RedisKeyUtil.getUserLoginKey(token));
                     logger.info("auth,token -> {},result -> {}", token, serverToken);
                     if (StringUtils.isEmpty(serverToken)){
-                        servletRequest.getRequestDispatcher("/bossUser/unauth").forward(servletRequest, servletResponse);
+//                        servletRequest.getRequestDispatcher("/bossUser/unauth").forward(servletRequest, servletResponse);
+                        resp.setStatus(444);
+                        return;
                     } else {
                         JSONObject userInfo = JSONObject.parseObject(serverToken);
                         // 权限校验
@@ -52,7 +56,9 @@ public class RbacFilter implements Filter {
                                 redisService.expire(RedisKeyUtil.getUserLoginKey(token),60 * 60 * 2);
                                 filterChain.doFilter(servletRequest, servletResponse);
                             }else {
-                                servletRequest.getRequestDispatcher("/bossUser/unauthorized").forward(servletRequest, servletResponse);
+//                                servletRequest.getRequestDispatcher("/bossUser/unauthorized").forward(servletRequest, servletResponse);
+                                resp.setStatus(443);
+                                return;
                             }
                         }
                     }

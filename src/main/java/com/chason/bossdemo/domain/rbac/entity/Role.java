@@ -1,6 +1,7 @@
 package com.chason.bossdemo.domain.rbac.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Role {
     private Integer id;
@@ -20,6 +21,16 @@ public class Role {
     private Date updateTime;
 
     private boolean isOwn;
+
+    private List<Permission> permissionList;
+
+    public List<Permission> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<Permission> permissionList) {
+        this.permissionList = permissionList;
+    }
 
     public boolean getIsOwn() {
         return isOwn;

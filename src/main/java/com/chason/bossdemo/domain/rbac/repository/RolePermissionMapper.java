@@ -32,4 +32,6 @@ public interface RolePermissionMapper {
     int updateByPrimaryKey(RolePermission record);
 
     List<String> getPermissionUuidsByRoleUuids(@Param("roleUuids") List<String> roleUuids);
+
+    int batchInsert(List<RolePermission> list);
 }

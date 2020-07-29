@@ -74,6 +74,7 @@ public class BossUserServiceImpl implements BossUserService {
 
         String token = UuidUtil.randomUUID();
         bossUser.setToken(token);
+        jsonObject.put("token", token);
         // 保存redis
         boolean redisFlag = redisService.set(RedisKeyUtil.getUserLoginKey(token), jsonObject.toJSONString(), 60 * 60 * 2);
 

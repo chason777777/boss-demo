@@ -248,4 +248,19 @@
     from t_role_permission
     where role_uuid in #{roleUuids,jdbcType=VARCHAR}
   </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into t_role_permission
+    (uuid,role_uuid,permission_uuid,create_time,update_time)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.uuid},
+      #{item.roleUuid},
+      #{item.permissionUuid},
+      #{item.createTime},
+      #{item.updateTime}
+      )
+    </foreach>
+  </insert>
 </mapper>

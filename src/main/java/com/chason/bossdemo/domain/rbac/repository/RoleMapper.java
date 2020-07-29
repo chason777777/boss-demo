@@ -2,9 +2,12 @@ package com.chason.bossdemo.domain.rbac.repository;
 
 import com.chason.bossdemo.domain.rbac.entity.Role;
 import com.chason.bossdemo.domain.rbac.entity.RoleExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface RoleMapper {
     int countByExample(RoleExample example);
 
