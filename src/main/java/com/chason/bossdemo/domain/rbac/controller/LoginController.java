@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author: chason
  * @Date: 2020/7/9 20:00
@@ -24,5 +26,10 @@ public class LoginController extends BaseController {
     @PostMapping("login")
     public Result login(@RequestBody JSONObject requestJson) throws Exception{
         return bossUserService.login(requestJson);
+    }
+
+    @PostMapping("logout")
+    public Result logout(HttpServletRequest request) throws Exception{
+        return bossUserService.logout(request);
     }
 }

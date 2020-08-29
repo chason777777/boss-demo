@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -62,14 +63,14 @@ public class BossUserServiceImpl implements BossUserService {
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("username", bossUser.getUserName());
+        jsonObject.put("userName", bossUser.getUserName());
         jsonObject.put("uuid", bossUser.getUuid());
         jsonObject.put("level", bossUser.getLevel());
         jsonObject.put("time", System.currentTimeMillis() / 1000);
 
         // 查询用户权限
         List<String> perUrlList = permissionService.getPermissionUrlsByUserUuid(bossUser.getUuid());
-        jsonObject.put("urls", perUrlList);
+        jsonObject.put("permissionUrlList", perUrlList);
         bossUser.setPermissionUrlList(perUrlList);
 
         String token = UuidUtil.randomUUID();
@@ -88,6 +89,16 @@ public class BossUserServiceImpl implements BossUserService {
         } else {
             return Result.error(ErrorType.LOGIN_FAIL.getKey(), ErrorType.LOGIN_FAIL.getValue());
         }
+    }
+
+    @Override
+    public Result logout(HttpServletRequest request) throws Exception {
+        String token = request.getHeader("token");
+        if (StringUtils.isEmpty(token)) {
+            return Result.error(ErrorType.PARAM_ISNULL.getKey(), ErrorType.PARAM_ISNULL.getValue());
+        }
+        redisService.del(RedisKeyUtil.getUserLoginKey(token));
+        return Result.success("登出成功");
     }
 
     @Override

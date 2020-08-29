@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.chason.bossdemo.common.Result;
 import com.chason.bossdemo.domain.rbac.entity.BossUser;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author: chason
  * @Date: 2020/7/9 20:01
@@ -18,6 +20,14 @@ public interface BossUserService {
      * @throws Exception
      */
     Result login(JSONObject requestJson) throws Exception;
+
+    /**
+     * 登出
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    Result logout(HttpServletRequest request) throws Exception;
 
     /**
      * 查询所有用户
